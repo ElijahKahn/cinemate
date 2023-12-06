@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import CineMate from "./CineMate";
+
+import { HashRouter } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router";
+import Home from "./CineMate/Home";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HashRouter>
+      <div className="app">
+        <Routes>
+          <Route path="/CineMate/Home" element={<Home/>} exact />
+          <Route path="/CineMate/*" element={<CineMate />} />
+        </Routes>
+      </div>
+    </HashRouter>
   );
 }
 

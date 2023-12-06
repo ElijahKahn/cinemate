@@ -1,0 +1,14 @@
+.navbar {
+  background-color: #2f2f2f;
+  
+}
+
+.nav-item {
+  margin: 15px;
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-brand {
+  color: white;
+}

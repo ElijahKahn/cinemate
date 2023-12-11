@@ -4,7 +4,7 @@
 
 .app {
   text-align: center;
-  background-color: #505168;
+  background-color: #ebebeb;
   min-height: 100vh;
   color: white;
   /* padding-top: 130px;
@@ -22,10 +22,10 @@
   display: flex;
   justify-content: center;
   font-family: "Montserrat", sans-serif;
-  font-size: 2vw;
+  font-size: 3vw;
   padding: 30px;
   border-radius: 50px;
-  color: white;
+  color: black;
 }
 
 @media (max-width: 1000px) {

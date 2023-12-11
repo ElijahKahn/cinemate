@@ -1,14 +1,28 @@
+.main-nav {
+  z-index: 1;
+  width: 100%;
+}
 .navbar {
-  background-color: #2f2f2f;
-  
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.nav-brand {
+  text-decoration: none;
+  color: white;
+  font-size: larger;
 }
 
 .nav-item {
   margin: 15px;
   text-decoration: none;
-  color: white;
+  color: black;
 }
 
 .navbar-brand {
   color: white;
+  font-size: larger;
+}
+
+.navbar .nav-link {
+  color: black;
 }

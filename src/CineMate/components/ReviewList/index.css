@@ -1,0 +1,32 @@
+.reviews-container h4 {
+  margin-top: 50px;
+  color: black;
+  text-align: left;
+}
+
+.reviews-container ul {
+  list-style: none;
+}
+.card {
+  background-color: #fff;
+  color: #333;
+  border-radius: 15px;
+  padding: 40px 50px;
+  margin: 20px 0;
+  position: relative;
+}
+.card.reverse {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+}
+
+.reviews-container input:focus {
+  outline: none;
+}
+.list-group-item .reviews {
+  text-align: left;
+}
+
+.list-group-item .reviews b {
+  margin-right: 10px;
+}

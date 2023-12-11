@@ -1,0 +1,76 @@
+.profile-container {
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+  margin-bottom: 20px;
+}
+
+.profile-header .profile-picture {
+  color: #4a4a4a; /* Color for the icon */
+  margin-bottom: 10px;
+}
+
+.profile-header h2 {
+  cursor: pointer;
+  display: inline-block;
+  margin: 10px 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.profile-header input {
+  font-size: 24px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
+.profile-info p {
+  font-size: 18px;
+  color: #555;
+}
+
+.profile-details {
+  text-align: center; /* Center aligns the content */
+  margin-bottom: 20px;
+}
+
+.profile-icon {
+  color: #4a4a4a;
+  margin-bottom: 15px; /* Adds space below the icon */
+}
+
+.name-and-input h2,
+.name-and-input input {
+  margin: 0 auto; /* Centers the text and input field */
+  padding: 5px;
+  font-size: 24px;
+  color: black;
+  border: none;
+  background: transparent;
+  width: fit-content; /* Makes the width of the element fit its content */
+}
+
+.name-and-input input {
+  border-bottom: 1px solid grey; /* Adds an underline to the editable input */
+}
+
+.logout-button {
+  padding: 10px 20px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.logout-button:hover {
+  background-color: #c9302c;
+}

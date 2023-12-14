@@ -13,7 +13,7 @@ function Search() {
   const [content, setContent] = useState([]);
   const [searched, setSearched] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  
+
 
   const handleChange = (e) => {
     setQuery(e.target.value);

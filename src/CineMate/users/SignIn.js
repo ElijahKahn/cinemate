@@ -13,25 +13,27 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import CineMateLogo from "../../CineMate/CineMateNavigation/CineMateLogo.png";
-import CineMateNavigation from "../../CineMate/CineMateNavigation";
+import CineMateNavigation from "../CineMateNavigation";
 import { useState } from "react";
-import * as client from "../users/client.js";
-
+import * as client from "./client.js";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const [credentials, setCredentials] = useState({ username: "", password: "" });
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+  });
   const [error, setError] = useState(""); // Add state for error message
-
 
   const navigate = useNavigate();
   const signin = async (event) => {
     event.preventDefault();
     try {
       const response = await client.signin(credentials);
+
       if (response && response.username) {
         navigate("/CineMate/Profile");
       } else {
@@ -43,14 +45,6 @@ export default function SignIn() {
       alert("Invalid username or password. Please try again.");
     }
   };
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get("email"),
-  //     password: data.get("password"),
-  //   });
-  // };
 
   return (
     <>
@@ -74,12 +68,7 @@ export default function SignIn() {
             <Typography style={{ color: "black" }} component="h1" variant="h4">
               Sign in
             </Typography>
-            <Box
-              component="form"
-              onSubmit={signin}
-              noValidate
-              sx={{ mt: 1 }}
-            >
+            <Box component="form" onSubmit={signin} noValidate sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -89,8 +78,10 @@ export default function SignIn() {
                 name="username"
                 autoComplete="username"
                 autoFocus
-                value={credentials.username} onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
-
+                value={credentials.username}
+                onChange={(e) =>
+                  setCredentials({ ...credentials, username: e.target.value })
+                }
               />
               <TextField
                 margin="normal"
@@ -100,7 +91,11 @@ export default function SignIn() {
                 label="Password"
                 id="password"
                 autoComplete="current-password"
-                value={credentials.password} type="password" onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+                value={credentials.password}
+                type="password"
+                onChange={(e) =>
+                  setCredentials({ ...credentials, password: e.target.value })
+                }
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

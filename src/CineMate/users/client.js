@@ -49,3 +49,18 @@ export const signout = async () => {
   const response = await request.post(`${USERS_API}/signout`);
   return response.data;
 };
+
+export const addToWatchlist = async (userId, media) => {
+  const response = await request.post(`${USERS_API}/${userId}/watchlist`, media);
+  return response.data;
+};
+
+export const getWatchlist = async (userId) => {
+  const response = await request.get(`${USERS_API}/${userId}/watchlist`);
+  return response.data;
+};
+
+export const removeFromWatchlist = async (userId, mediaId) => {
+  const response = await request.delete(`${USERS_API}/${userId}/watchlist/${mediaId}`);
+  return response.data;
+};

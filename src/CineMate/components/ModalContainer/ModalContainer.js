@@ -49,7 +49,6 @@ export default function ModalContainer({ children, media_type, id }) {
         options
       );
       const responseData = await response.json();
-      console.log(responseData)
       setContent(responseData);
     } catch (error) {}
   };

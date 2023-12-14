@@ -74,3 +74,51 @@
 .logout-button:hover {
   background-color: #c9302c;
 }
+
+
+.profile-contianer .card {
+  align-items: center;
+  text-align: center;
+  padding-top: 25px;
+  
+}
+
+.profile-role li{
+  margin-bottom: 1px;
+  text-align: left;
+}
+
+.first-row-buttons {
+  margin-bottom: 5px;
+}
+
+.css-1n3lyxl-MuiAvatar-root {
+  margin-bottom: 10px;
+  font-size: 3rem;
+
+}
+
+.avatar-text {
+  font-size: 6rem;
+  justify-content: center;
+
+}
+
+.review-page h5 {
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  padding-top: 50px;
+  border-radius: 50px;
+  color: black;
+}
+
+.review-link {
+  text-decoration: none;
+  color: inherit; /* Optional: to make link color same as normal text */
+}
+
+.review-link:hover {
+  text-decoration: underline; /* Adds an underline on hover */
+}

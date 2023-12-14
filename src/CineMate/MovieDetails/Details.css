@@ -46,7 +46,13 @@
 
 .overview-container {
   margin-top: 15px;
+  text-align: left;
 }
 .overview-container p {
   color: black;
+}
+
+.section-title {
+  color: black;
+  text-align: left;
 }

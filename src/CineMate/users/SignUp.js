@@ -15,10 +15,10 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControl from "@mui/material/FormControl";
 import CineMateLogo from "../../CineMate/CineMateNavigation/CineMateLogo.png";
-import CineMateNavigation from "../../CineMate/CineMateNavigation";
+import CineMateNavigation from "../CineMateNavigation";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import * as client from "../users/client.js";
+import * as client from "./client.js";
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -33,7 +33,8 @@ export default function SignUp() {
     username: "", password: "" });
   const navigate = useNavigate();
 
-  const signup = async () => {
+  const signup = async (event) => {
+    event.preventDefault();
     try {
       await client.signup(credentials);
       navigate("/CineMate/Profile");

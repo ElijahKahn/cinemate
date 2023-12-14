@@ -1,3 +1,4 @@
+
 .reviews-container h4 {
   margin-top: 50px;
   color: black;
@@ -7,26 +8,61 @@
 .reviews-container ul {
   list-style: none;
 }
-.card {
-  background-color: #fff;
-  color: #333;
-  border-radius: 15px;
-  padding: 40px 50px;
-  margin: 20px 0;
-  position: relative;
-}
-.card.reverse {
-  background-color: rgba(0, 0, 0, 0.4);
-  color: #fff;
+
+.reviews b {
+  margin-right: 10px;
 }
 
-.reviews-container input:focus {
-  outline: none;
-}
-.list-group-item .reviews {
+.reviews {
   text-align: left;
 }
 
-.list-group-item .reviews b {
-  margin-right: 10px;
+.must-sign-in a {
+  color: gray;
+}
+
+.must-sign-in {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.submit {
+  position: relative;
+  box-shadow: 0 0 40px rgba(51, 51, 51, 0.1);
+  margin-bottom: 25px;
+}
+
+.submit input {
+  height: 60px;
+  text-indent: 25px;
+  border: 2px solid #d6d4d4;
+}
+
+.submit input:focus {
+  box-shadow: none;
+  border: 2px solid blue;
+}
+
+.submit .fa-search {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+}
+
+.submit button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 50px;
+  width: 110px;
+  background: lightgray;
+}
+
+.authorName a {
+  text-decoration: none; /* Removes underline */
+  color: black; /* Sets text color to black */
+}
+
+.authorName a:hover {
+  text-decoration: underline; /* Optional: underline on hover */
 }

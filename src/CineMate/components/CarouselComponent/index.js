@@ -44,7 +44,7 @@ const CarouselComponent = () => {
               />
               <Carousel.Caption>
                 <h1>{c.title || c.name}</h1>
-                <p>{c.overview}</p>
+                <p className="container">{c.overview}</p>
               </Carousel.Caption>
             </Carousel.Item>
           ))}

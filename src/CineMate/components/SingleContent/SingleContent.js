@@ -6,10 +6,9 @@ import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from 'react-router-dom';
 
-function SingleContent({ id, poster, title, date, media_type, vote_average }) {
+function SingleContent({ id, poster, title, date, media_type, vote_average, renderRemoveButton }) {
   const location = useLocation();
   const currentPath = location.pathname;
-  const [isAddedToWatchlist, setIsAddedToWatchlist] = useState(false);
   const detailsPath = `${currentPath}/Details/${media_type}/${id}`;
 
 
@@ -42,6 +41,7 @@ function SingleContent({ id, poster, title, date, media_type, vote_average }) {
       >
         {isAddedToWatchlist ? <RemoveIcon /> : <AddIcon />}
       </button> */}
+      {renderRemoveButton && renderRemoveButton()}
     </div>
     </Link>
   );

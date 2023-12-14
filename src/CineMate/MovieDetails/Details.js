@@ -3,13 +3,12 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { IoTicketSharp } from "react-icons/io5";
 import ReviewList from "../components/ReviewList";
-import { GlobalContext } from "../context/GlobalState";
-
+import * as client from "../users/client.js";
+import VideoNotAvailable from "./VideoNotAvailable.jpg"
 
 import "./Details.css";
 
 import { img_500, unavailable } from "../config/config";
-
 
 function Details() {
   const { media_type, id } = useParams();
@@ -17,44 +16,7 @@ function Details() {
   const [isAddedToWatchlist, setIsAddedToWatchlist] = useState(false);
   const [video, setVideo] = useState();
   const [reviews, setReviews] = useState([]);
-  const { watchlist, addMovieToWatchlist, removeMovieFromWatchlist } = useContext(GlobalContext);
-
-  useEffect(() => {
-    const itemInWatchlist = watchlist.some(item => item.id === id && item.media_type === media_type);
-    setIsAddedToWatchlist(itemInWatchlist);
-}, [watchlist, id, media_type]);
-
-const checkWatchlist = () => {
-  const itemInWatchlist = watchlist.some(item => item.media_id === id && item.media_type === media_type);
-  setIsAddedToWatchlist(itemInWatchlist);
-};
-
-const handleWatchlistToggle = () => {
-    const item = { id, media_type, ...content };
-
-    if (isAddedToWatchlist) {
-        removeMovieFromWatchlist(id, media_type);
-        sendWatchlistUpdateRequest(item, 'remove');
-    } else {
-        addMovieToWatchlist(item);
-        sendWatchlistUpdateRequest(item, 'add');
-    }
-
-    setIsAddedToWatchlist(!isAddedToWatchlist);
-};
-
-const sendWatchlistUpdateRequest = (item, action) => {
-    fetch('/api/watchlist-update', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ action, item }),
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
-};
+  const [account, setAccount] = useState(null);
 
 
   const fetchData = async () => {
@@ -99,16 +61,52 @@ const sendWatchlistUpdateRequest = (item, action) => {
     } catch (error) {}
   };
 
-
   useEffect(() => {
     fetchData();
     fetchVideo();
-    checkWatchlist();
     // eslint-disable-next-line
   }, [id, media_type]);
 
-  // Fetch movie details using the id
-  // ...
+  useEffect(() => {
+    const fetchAccount = async () => {
+      try {
+        const fetchedAccount = await client.account();
+        setAccount(fetchedAccount);
+      } catch (error) {
+        console.error("error fetching", error);
+      }
+    };
+  
+    fetchAccount();
+  }, []);
+
+  useEffect(() => {
+  const checkIfMovieInWatchlist = async () => {
+    if (account && account._id) {
+      try {
+        const userWatchlist = await client.getWatchlist(account._id);
+        const isMovieInWatchlist = userWatchlist.some(item => item.media_id === parseInt(id));
+        setIsAddedToWatchlist(isMovieInWatchlist);
+      } catch (error) {
+        console.error("Error checking watchlist", error);
+      }
+    }
+  };
+
+  checkIfMovieInWatchlist();
+}, [id, account]);
+
+
+
+  const handleWatchlistClick = async () => {
+    if (isAddedToWatchlist) {
+      await client.removeFromWatchlist(account._id, content.id);
+    } else {
+      await client.addToWatchlist(account._id, { media_id: content.id, media_type: media_type });
+    }
+    setIsAddedToWatchlist(!isAddedToWatchlist);
+  };
+
 
   return (
     <div>
@@ -128,27 +126,38 @@ const sendWatchlistUpdateRequest = (item, action) => {
           </div>
           <div className="detail-subheader container">
             <div>
-              <p>
-                {content.first_air_date
-                  ? content.first_air_date.split("-")[0]
-                  : content.release_date.split("-")[0]}
-              </p>{" "}
+            <p>
+    {content.first_air_date
+      ? content.first_air_date.split("-")[0]
+      : (content.release_date
+        ? content.release_date.split("-")[0]
+        : "Release Date Not Available")}
+  </p>{" "}
               {media_type === "tv" && (
-                <p>
-                  <p>·</p>
-                  {content.number_of_seasons} seasons
-                </p>
+              <p>
+              <span>· </span>
+              {content.number_of_seasons
+                ? `${content.number_of_seasons} ${content.number_of_seasons === 1 ? 'season' : 'seasons'}`
+                : "Season Info Not Available"}
+            </p>
               )}
             </div>
             <div>
-              <button
-                onClick={handleWatchlistToggle}
-                className="btn btn-light button-container"
-              >
-                {isAddedToWatchlist
-                  ? "Remove from Watchlist"
-                  : "Add to Watchlist"}{" "}
-              </button>
+            {account ? (
+  <button
+    className="btn btn-light button-container"
+    onClick={handleWatchlistClick}
+  >
+    {isAddedToWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
+  </button>
+) : (
+  <button
+    className="btn btn-light button-container"
+    onClick={() => alert("Must be logged in to add to Watchlist")}
+  >
+    Add to Watchlist
+  </button>
+)}
             </div>
           </div>
           <div className="details-container container">
@@ -165,24 +174,31 @@ const sendWatchlistUpdateRequest = (item, action) => {
                 />
               </div>
               <div className="col-8">
-                {video && (
+                {video ? (
                   <iframe
                     className="details-trailer"
                     src={`https://www.youtube.com/embed/${video}`}
-                  />
-                )}
+                  /> 
+                ) : <img className="details-trailer" src = {VideoNotAvailable}
+                alt="VideoNotAvailable"/>}
               </div>
             </div>
 
             <div className="overview-container container">
+              <h4 className="section-title">Description</h4>
               <p>
-                {content.genres &&
-                  content.genres.map((genre) => genre.name).join(", ")}
-              </p>
-              <p>{content.overview}</p>
+    {content.genres && content.genres.length > 0
+      ? content.genres.map((genre) => genre.name).join(", ")
+      : "Genres not available"}
+  </p>
+  <p>
+    {content.overview
+      ? content.overview
+      : "Overview not available"}
+  </p>
             </div>
+            <ReviewList reviews={reviews} mediaType={media_type} mediaId={content.id} />
           </div>
-          <ReviewList reviews={reviews} movieId={content.id} />
         </div>
       )}
     </div>
